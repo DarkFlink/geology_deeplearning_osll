@@ -24,11 +24,11 @@ test_dataset = torchvision.datasets.MNIST(root='./',
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-train_data = train_dataset.train_data.to(device)
-train_labels = train_dataset.train_labels.to(device)
+train_data = train_dataset.data.to(device)
+train_labels = train_dataset.targets.to(device)
 
-test_data = train_dataset.train_data.to(device)
-test_labels = train_dataset.train_labels.to(device)
+test_data = train_dataset.data.to(device)
+test_labels = train_dataset.targets.to(device)
 
 train_data = train_data.float()
 test_data = test_data.float()
@@ -76,8 +76,8 @@ torch.save(mnist_net.state_dict(), "./mnist_model.pth")
 plt.figure(1, figsize=(8, 5))
 plt.title("test accuracy")
 plt.plot(test_accuracy_history)
-plt.savefig("accuracy_history.png")
+plt.savefig("./accuracy_history.png")
 plt.figure(2, figsize=(8, 5))
 plt.title("test loss history")
 plt.plot(test_loss_history)
-plt.savefig("loss_history.png")
+plt.savefig("./loss_history.png")
