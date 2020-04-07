@@ -7,6 +7,23 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
 
+class Regressor(torch.nn.Module):
+    def __init__(self):
+        super(Regressor, self).__init__()
+
+        self.features = torch.nn.Sequential(
+            torch.nn.Linear(2, 64),
+            torch.nn.ReLU(),
+            torch.nn.Linear(64, 64),
+            torch.nn.ReLU(),
+            torch.nn.Linear(64, 1),
+        )
+
+    def forward(self, inputs):
+        return self.features(inputs)
+
+
+# dataset prepare
 df = pd.read_csv("./datasets/monthly_temperature_aomori_city.csv")
 df.head()
 
@@ -32,17 +49,13 @@ X_train[:, 1] = X_train[:, 1] / max(X_train[:, 1])
 X_test[:, 0] = X_test[:, 0] / max(X_test[:, 0])
 X_test[:, 1] = X_test[:, 1] / max(X_test[:, 1])
 
-model = torch.nn.Sequential(
-    torch.nn.Linear(2, 64),
-    torch.nn.ReLU(),
-    torch.nn.Linear(64, 64),
-    torch.nn.ReLU(),
-    torch.nn.Linear(64, 1),
-)
+# model  prepare
+model = Regressor()
 
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 criterion = torch.nn.MSELoss()
 
+# fit
 for epoch in range(300):
 
     losses = []
