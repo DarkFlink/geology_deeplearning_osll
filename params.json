@@ -1,7 +1,7 @@
 {
   "days_from_start":44,
   "population": 5400000,
-  "history_smooth_gap": 3,
+  "history_smooth_gap": 10,
   "incubation_period": 5.1,
   "amount_of_people_an_infected_person_infects": 2.5,
   "period_until_death": 14,
